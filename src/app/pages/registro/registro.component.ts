@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registro',
@@ -14,7 +15,8 @@ export class RegistroComponent implements OnInit {
 
   usuario: UsuarioModel;
   constructor(
-    private auth: AuthService
+    private auth: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit() { 
@@ -33,7 +35,7 @@ export class RegistroComponent implements OnInit {
       Swal.showLoading();
       const result = await this.auth.nuevoUsuario(this.usuario);
       Swal.close();
-      console.log(result);
+      this.router.navigateByUrl('/home');
 
     } catch (error) {
       console.error(error.error.error.message);
