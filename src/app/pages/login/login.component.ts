@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UsuarioModel } from 'src/app/models/usuario.model';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -10,14 +11,24 @@ import { UsuarioModel } from 'src/app/models/usuario.model';
 export class LoginComponent implements OnInit {
 
   usuario: UsuarioModel = new UsuarioModel();
-  constructor() { }
+  constructor(
+    private auth: AuthService
+  ) { }
 
   ngOnInit() {
   }
 
-  login(form: NgForm){
+  async login(form: NgForm){
     if (form.invalid) return;
-    console.log(form);
-    console.log("Imprimir si el form es valido")
+
+    try {
+    
+      const result = await this.auth.login(this.usuario);
+      console.log(result);
+  
+    } catch (error) {
+      console.error(error.error.error.message)
+    }
+    
   }
 }
