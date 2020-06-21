@@ -3,6 +3,8 @@ import { UsuarioModel } from 'src/app/models/usuario.model';
 import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.component.html',
@@ -21,14 +23,26 @@ export class RegistroComponent implements OnInit {
 
   async onSubmit(form: NgForm){
     if (form.invalid) return;
-  try {
-    
-    const result = await this.auth.nuevoUsuario(this.usuario);
-    console.log(result);
+    try {
+      Swal.fire({
+        allowOutsideClick:false,
+        type:'info',
+        text:'Espere por favor...'
+      });
 
-  } catch (error) {
-    console.error(error.error.error.message)
-  }
+      Swal.showLoading();
+      const result = await this.auth.nuevoUsuario(this.usuario);
+      Swal.close();
+      console.log(result);
+
+    } catch (error) {
+      console.error(error.error.error.message);
+      Swal.fire({
+        type:'error',
+        title:'Error al autenticar',
+        text:error.error.error.message
+      });
+    }
   }
 
 }
