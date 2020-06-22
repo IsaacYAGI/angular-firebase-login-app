@@ -69,12 +69,17 @@
                     </div>
     
                     <div class="container-login100-form-btn m-t-17">
-                        <button class="login100-form-btn" type="submit">
+                        <button class="login100-form-btn" type="submit"
+                        [disabled]="firebaseApikeyConfigurator.apikey == ''">
                             Crear cuenta
                         </button>
                     </div>
                     <div class="container-login100-form-btn m-t-17">
-                        <button class="btn btn-info" type="button">
+                        <button 
+                            class="btn btn-info" 
+                            type="button"
+                            (click)="firebaseApikeyConfigurator.guardarApiKey()"
+                            >
                             Configurar Firebase Apikey
                         </button>
                     </div>
