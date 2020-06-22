@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UsuarioModel } from '../models/usuario.model';
 import { map } from 'rxjs/operators';
+import { FirebaseApikeyManagerService } from './firebase-apikey-manager.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +16,10 @@ export class AuthService {
   //https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=[API_KEY]
 
   private url = "https://identitytoolkit.googleapis.com/v1/accounts";
-  private apikey = "FIREBASE_TOKEN";
   private userToken: string;
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private firebaseApiKeyManager: FirebaseApikeyManagerService
   ) {
     this.leerToken();
    }
@@ -34,7 +35,7 @@ export class AuthService {
     };
 
     return this.http.post(
-      `${this.url}:signInWithPassword?key=${this.apikey}`,
+      `${this.url}:signInWithPassword?key=${this.firebaseApiKeyManager.apikey}`,
       authData
     ).pipe(
       map(resp =>{
@@ -52,7 +53,7 @@ export class AuthService {
     };
 
     return this.http.post(
-      `${this.url}:signUp?key=${this.apikey}`,
+      `${this.url}:signUp?key=${this.firebaseApiKeyManager.apikey}`,
       authData
     ).pipe(
       map(resp =>{

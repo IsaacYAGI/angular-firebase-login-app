@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { FirebaseApikeyManagerService } from 'src/app/services/firebase-apikey-manager.service';
 
 @Component({
   selector: 'app-registro',
@@ -17,7 +18,8 @@ export class RegistroComponent implements OnInit {
   recordarme = false;
   constructor(
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    public firebaseApikeyConfigurator: FirebaseApikeyManagerService
   ) { }
 
   ngOnInit() { 
