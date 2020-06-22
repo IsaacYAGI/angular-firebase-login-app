@@ -26,6 +26,7 @@ export class AuthService {
 
   logout(){
     localStorage.removeItem('token');
+    localStorage.removeItem('expira');
   }
 
   login(usuario: UsuarioModel){
@@ -87,13 +88,12 @@ export class AuthService {
 
     if (this.userToken.length < 2) return false;
 
-    // const expira = Number(localStorage.getItem('item'));
-    // const expiraDate = new Date();
-    // expiraDate.setTime(expira);
-    // if (expiraDate > new Date()){
-    //   return true;
-    // }else return false;
-    return true;
+    const expira = Number(localStorage.getItem('expira'));
+    let expiraDate = new Date();
+    expiraDate.setTime(expira);
+    if (expiraDate > new Date()){
+      return true;
+    }else return false;
   }
 
 }
