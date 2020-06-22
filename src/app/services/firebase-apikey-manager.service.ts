@@ -16,6 +16,7 @@ export class FirebaseApikeyManagerService {
     Swal.fire({
       title: 'Ingresa tu apikey de firebase',
       input: 'text',
+      inputValue:this.apikey,
       showCancelButton: true,
       confirmButtonText: 'Guardar',
     }).then((result) => {
